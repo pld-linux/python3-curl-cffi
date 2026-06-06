@@ -1,0 +1,25 @@
+--- a/scripts/build.py
++++ b/scripts/build.py
+@@ -65,6 +65,14 @@
+ 
+ 
+ arch = detect_arch()
++
++# PLD: link against the system libcurl-impersonate shared library. The bundled
++# logic downloads a prebuilt static archive, which is impossible in the
++# network-isolated build; curl-impersonate is packaged separately.
++arch["link_type"] = "dynamic"
++arch["libdir"] = os.environ["CURL_IMPERSONATE_LIBDIR"]
++arch["obj_name"] = "libcurl-impersonate.so"
++
+ link_type = arch.get("link_type")
+ libdir = Path(arch["libdir"])
+ is_static = link_type == "static"
+@@ -178,6 +186,7 @@
+     extra_objects=[],  # linked via extra_link_args
+     source_extension=".c",
+     include_dirs=[
++        os.environ["CURL_IMPERSONATE_INCLUDEDIR"],
+         str(root_dir / "include"),
+         str(root_dir / "ffi"),
+         str(libdir / "include"),

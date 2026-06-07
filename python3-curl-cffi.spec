@@ -8,7 +8,7 @@ Summary:	Python binding for curl-impersonate via cffi
 Summary(pl.UTF-8):	Wiązanie Pythona do curl-impersonate przez cffi
 Name:		python3-curl-cffi
 Version:	0.15.0
-Release:	2
+Release:	3
 License:	MIT
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/curl-cffi/
@@ -31,8 +31,6 @@ BuildRequires:	python3-pytest
 Requires:	python3-certifi
 Requires:	python3-cffi >= 2.0.0
 Requires:	python3-rich
-# follows curl-impersonate, which BoringSSL cannot build on the x32 ABI
-ExcludeArch:	x32
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description

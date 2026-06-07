@@ -1,21 +1,24 @@
---- a/scripts/build.py
-+++ b/scripts/build.py
-@@ -65,6 +65,14 @@
+--- a/scripts/build.py	2026-06-07 14:03:42.913871277 +0200
++++ b/scripts/build.py	2026-06-07 14:04:29.375811980 +0200
+@@ -64,7 +64,16 @@
+     raise Exception(f"Unsupported arch: {uname}")
  
  
- arch = detect_arch()
-+
+-arch = detect_arch()
 +# PLD: link against the system libcurl-impersonate shared library. The bundled
-+# logic downloads a prebuilt static archive, which is impossible in the
-+# network-isolated build; curl-impersonate is packaged separately.
-+arch["link_type"] = "dynamic"
-+arch["libdir"] = os.environ["CURL_IMPERSONATE_LIBDIR"]
-+arch["obj_name"] = "libcurl-impersonate.so"
-+
++# detect_arch()/download logic only selects a prebuilt archive to fetch, which
++# is impossible in the network-isolated build and raises on arches with no
++# upstream prebuilt (e.g. x32); curl-impersonate is packaged separately.
++arch = {
++    "system": "Linux",
++    "link_type": "dynamic",
++    "libdir": os.environ["CURL_IMPERSONATE_LIBDIR"],
++    "obj_name": "libcurl-impersonate.so",
++}
  link_type = arch.get("link_type")
  libdir = Path(arch["libdir"])
  is_static = link_type == "static"
-@@ -178,6 +186,7 @@
+@@ -178,6 +187,7 @@
      extra_objects=[],  # linked via extra_link_args
      source_extension=".c",
      include_dirs=[

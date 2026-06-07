@@ -1,0 +1,19 @@
+--- curl_cffi-0.15.0/libs.json~	2026-04-03 12:21:13.000000000 +0200
++++ curl_cffi-0.15.0/libs.json	2026-06-07 14:07:06.562190396 +0200
+@@ -60,6 +60,16 @@
+     {
+         "system": "Linux",
+         "machine": "x86_64",
++        "pointer_size": 32,
++        "sysname": "linux",
++        "link_type": "static",
++        "libc": "gnu",
++        "obj_name": "libcurl-impersonate.a",
++        "arch": "x86_64"
++    },
++    {
++        "system": "Linux",
++        "machine": "x86_64",
+         "pointer_size": 64,
+         "sysname": "linux",
+         "link_type": "static",

@@ -8,13 +8,14 @@ Summary:	Python binding for curl-impersonate via cffi
 Summary(pl.UTF-8):	Wiązanie Pythona do curl-impersonate przez cffi
 Name:		python3-curl-cffi
 Version:	0.15.0
-Release:	3
+Release:	4
 License:	MIT
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/curl-cffi/
 Source0:	https://files.pythonhosted.org/packages/source/c/%{module}/%{module}-%{version}.tar.gz
 # Source0-md5:	108ff8b07bacb0c292471f31025b4c7b
 Patch0:		curl-cffi-system-libcurl.patch
+Patch1:		x32.patch
 URL:		https://github.com/lexiforest/curl_cffi
 BuildRequires:	curl-impersonate-devel
 BuildRequires:	python3-build
@@ -48,6 +49,7 @@ użytku synchronicznego oraz asynchronicznego.
 %prep
 %setup -q -n %{module}-%{version}
 %patch -P0 -p1
+%patch -P1 -p1
 
 %build
 export CURL_IMPERSONATE_LIBDIR="%{_libdir}"
